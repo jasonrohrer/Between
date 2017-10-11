@@ -1,0 +1,15 @@
+rm -r minorGems/ai
+rm -r minorGems/bench
+rm -r minorGems/doc
+rm -r minorGems/examples
+rm -r minorGems/sound
+rm -r minorGems/network/upnp
+rm -r minorGems/graphics/converters/lodepng.*
+
+
+rm -r game7/documentation/concept
+rm -r game7/documentation/html
+rm -r game7/documentation/igf2009
+rm -r game7/documentation/esquire
+rm -r game7/documentation/screen_big.png
+rm -r game7/documentation/steam

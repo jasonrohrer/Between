@@ -1,0 +1,47 @@
+Between
+
+Description
+
+A networked game for two players about consciousness and isolation.
+
+
+
+Credits
+
+All design, programming, graphics, and fonts by Jason Rohrer. 
+
+
+
+Platform:
+
+Windows 98/2000/XP/etc.
+MacOS 10.2 and later
+GNU/Linux
+
+Low-end 3D card that supports OpenGL.
+
+Network connection required.
+
+Runs fine on a 900 MHz machine.  Probably runs fine on slower machines as well.
+
+
+http://hcsoftware.sf.net/between
+
+
+Instructions:
+
+Installation:  just run the self-extracting archive.
+
+The game explains its controls to you as you play it.  Keyboard only, no mouse input.  Only keys used by the game:  Up, Down, Left, Right, B, N, W, S, Space.
+
+No need to memorize these, though, since keyboard hints appear in the game.
+
+After the title screen, the game should connect to the server.  Your best bet at this stage (given that the game is not public yet) is to arrange a play time with a friend.  Generate a new game and give the 7-digit code to your friend.  After your friend enters the code, the game will start.
+
+This game is for TWO PLAYERS ONLY.
+
+
+Please upload your game through ftp. Here is the ftp information:
+Hostname: upload.igf.com
+User: igfcontest
+Password: igfftpentry 

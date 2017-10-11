@@ -1,0 +1,190 @@
+All returns are whitespace-delimited.
+
+Error returns start with the string "ERROR:"
+
+
+
+
+=== Call:
+server.php?action=get_player_id
+
+Returns:
+playerID
+
+
+Where:
+playerID = string
+
+
+Note:  Used to prevent joining game with self.
+
+
+
+=== Call:
+server.php?action=create_for_friend&player_id=[id string]
+
+Returns:
+gameID
+gamePasscode
+playerNumber
+playerBlockTransform
+
+
+Where:
+gameID = string
+gamePasscode = string
+playerNumber = 1 or 2
+playerBlockTransform = comma-delimited list of indices 0..15
+
+Note:  must check is_partner_ready before playing.
+
+
+
+
+
+=== Call:
+server.php?action=join_with_friend&player_id=[id string]&game_id=[id string]
+
+Returns:
+gameID
+gamePasscode
+playerNumber
+playerBlockTransform
+
+
+Where:
+gameID = string
+gamePasscode = string
+playerNumber = 1 or 2
+playerBlockTransform = comma-delimited list of indices 0..15
+
+
+Note:  no need to check is_partner_ready before playing.
+
+
+
+
+=== Call:
+server.php?action=join_with_stranger&player_id=[id string]
+
+Returns:
+gameID
+gamePasscode
+playerNumber
+playerBlockTransform
+
+
+Where:
+gameID = string
+gamePasscode = string
+playerNumber = 1 or 2
+playerBlockTransform = comma-delimited list of indices 0..15
+
+Note:  must check is_partner_ready before playing.
+Must keep checking for available partner every 5 seconds until a partner is
+provided.  If an unmatched gameID goes unchecked for more than 20 seconds,
+it is assumed abandoned and discarded from the server.
+
+
+
+
+
+=== General note:
+player_id is not used by any of the following calls.  The purpose of player_id
+is to ensure that players do not join games with themselves accidentally.
+
+
+
+
+
+
+=== Call:
+server.php?action=is_partner_ready&game_id=[id string]&game_passcode=[passcode string]&player_number=[1 or 2]
+
+
+Returns:
+readyFlag
+
+
+Where:
+readyFlag = 0 or 1
+
+
+Note:
+player_number in the call is *our* player number, not partner number.
+
+
+
+
+=== Call:
+server.php?action=report_alive&game_id=[id string]&game_passcode=[passcode string]&player_number=[1 or 2]
+
+
+Returns:
+successFlag
+
+
+Where:
+successFlag = 1
+
+
+Note:  post_move and get_changed_columns also updates alive status.  Thus,
+report_alive should only be called during periods of inactivity, at least once
+every 5 minutes during such periods.
+
+
+
+
+=== Call (params probably in POST body):
+server.php?action=post_move&game_id=[id string]&game_passcode=[passcode string]&player_number=[1 or 2]&num_dirty_columns=[number]&dirty_column_0=[column string]&dirty_column_1=[column string]& ... &dirty_column_N=[column string]
+
+
+Returns:
+successFlag
+
+
+Where:
+successFlag = 1
+
+
+Note:
+Each column string starts with its column index number, followed by a "_", 
+followed by a "_"-delimited list of block color signatures. Blocks are listed
+starting with the block in row 0
+
+
+
+
+=== Call:
+server.php?action=get_changed_columns&game_id=[id string]&game_passcode=[passcode string]&player_number=[1 or 2]&last_state_seen=[number]
+
+
+Returns:
+secondsSincePartnerActed
+stateNumber
+numChangedColumns
+column0
+column1
+...
+columnN
+
+
+Where:
+secondsSincePartnerActed = integer >= 0
+stateNumber = integer >= 0
+numChangedColumns = integer >=0
+columnX = column string (see below)
+
+
+Notes:
+
+-- last_state_seen  indicates the last state fetched by the client from the 
+server.
+
+-- secondsSincePartnerActed can be used to detect a zombie partner.
+
+-- Each column string starts with its column index number, followed by a "_", 
+followed by a "_"-delimited list of block color signatures. Blocks are listed 
+starting with the block in row 0
+
+

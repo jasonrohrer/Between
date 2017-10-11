@@ -1,0 +1,69 @@
+Between
+
+a video game by Jason Rohrer
+
+
+
+Synopsis:
+
+You know exactly what you need to do---you can see it shimmering right there in front of you.  You can see it while dreaming, too, and the difference has become subtle.  Dreams wake into dreams, and people blend in and out:  real characters and dream characters, all woven into the same script.  Finally, they fade completely, and you're alone in the expanse with the construction.  With time, you feel something growing, a pinhole that eventually yawns into a deep ravine of longing.  The construction languishes, though the expanse seems indifferent.  
+
+One night, in a dream, they appear:  things that you clearly could not have conjured on your own.  Not snowflakes.  Not the self-similar forms of leaves.  Not distant planets' erosion networks as viewed through telescopes.  Not those things that are beautifully external but lack the signatures of consciousness.  These things that appear are ugly and non-procedural:  indecipherable transmissions bubbling up through static, faded messages floating in bottles, and charcoal handprints on cave walls.  Evidence has reached you through time of unknown duration and distance of unknown magnitude, but stale evidence is still evidence.  Somewhere, across whatever barriers stand between, is an other.
+
+
+
+
+Other info:
+
+*Between* is a game for two players linked by a network server.  You can play with a friend or find a stranger on the server.  There is no single-player mode.  If you must play in the same room as your partner, do not look at your partner's screen---that will spoil the effect of the game.
+
+
+
+Download links:
+
+http://downloads.sourceforge.net/hcsoftware/Between_v5_Windows.exe
+http://downloads.sourceforge.net/hcsoftware/Between_v5_MacOSX.dmg
+http://downloads.sourceforge.net/hcsoftware/Between_v5_UnixSource.tar.gz
+
+
+
+
+
+System Requirements:
+
+--Windows 98/2000/XP etc.
+--MacOS X 10.2 and later
+--GNU/Linux (compile yourself from source)
+
+--Network connection
+--3D card of some kind (most computers have this)
+--Speakers or headphones
+
+*Between* runs fine on a 900MHz machine, and should probably run well on even slower machines.
+
+Note: To build from source on GNU/Linux, you must have the SDL and OpenGL development libraries installed. 
+
+
+
+Controls:
+
+*Between* is controlled entirely with the keyboard.  Use the UP and DOWN arrow keys to navigate menus, SPACE to select menu items, and ESC or Q to back up in the menus.  The game explains the rest of the keyboard controls to you as you play.
+
+
+
+Screen settings:
+
+The game defaults to 640x480 windowed mode.  To increase the size of this window, modify the files in the "settings" folder with a text editor (Notepad on Windows, or TextEdit on MacOS X).  You can also switch to fullscreen mode by editing "fullscreen.ini" and changing the zero to a one.
+
+
+
+Credits:
+
+All code, music, graphics, fonts, and animation by Jason Rohrer.  The pixel art was made with mtPaint and The GIMP.  The SDL Library provides cross-platform screen, sound, and user input.  MinGW was used to build the game for Windows.
+
+Thanks go to Kyle Pulver, Ian Bogost, Anthony Burch, and Matthew Diamond for help with testing.
+
+
+License:  
+
+Placed in the public domain.

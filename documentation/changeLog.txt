@@ -1,0 +1,41 @@
+Version 6   2010-August-26
+
+--Fixed pointer arithmetic in WebRequest code to work on 64-bit platforms 
+  (thanks to David Turner).
+
+--Got working against latest minorGems code.
+
+--Fixed string warnings triggered by newer GCC versions.
+
+
+
+Version 5    2008-November-12
+
+--Fixed scaling and position of text strings to avoid aliasing artifacts.
+
+--Disabled compiler optimizations to avoid GCC 4.0 bug.
+
+--Set windowed mode as default (so that you can use other apps to give your
+  friend a game code).
+
+--Fixed bug that allowed blocks to be added floating in air if selector moved
+  up just as block added.
+
+--Fixed window title.
+
+
+
+Version 4    2008-November-10
+
+--Changes to make block constructor's function more clear:
+
+  --Added ghosted block grid template inside constructor.
+  
+  --Added "W" hint that appears when constructor full.
+
+
+
+
+Version 3    2008-November-4
+
+--Initial release for private beta testing.

@@ -1,0 +1,39 @@
+#!/bin/sh
+
+
+if [ $# -lt 1 ] ; then
+   echo "Usage: $0 version_number"
+   exit 1
+fi
+
+echo ""
+echo "   ####  Removing any old Between_v$1_UnixSource directory   ####"
+echo ""
+rm -rf Between_v$1_UnixSource*
+
+mkdir Between_v$1_UnixSource
+
+cd Between_v$1_UnixSource
+
+echo ""
+echo "   ####  Exporting source from repositories  ####"
+echo ""
+../exportSrc
+
+echo ""
+echo "   ####  Cleaning up unneeded source files  ####"
+echo ""
+../cleanSrc
+
+echo ""
+echo "   ####  Copying build script  ####"
+echo ""
+cp ../runToBuild .
+
+
+echo ""
+echo "   ####  Making tarball  ####"
+echo ""
+cd ..
+tar czf Between_v$1_UnixSource.tar.gz Between_v$1_UnixSource
+

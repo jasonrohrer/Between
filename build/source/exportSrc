@@ -1,0 +1,13 @@
+# Old CVS:
+# cvs -z3 -d:ext:jcr13@minorgems.cvs.sourceforge.net:/cvsroot/minorgems export -r HEAD minorGems
+
+# New Mercurial
+hg clone http://minorgems.hg.sourceforge.net/hgweb/minorgems/minorGems
+cd minorGems
+hg archive ../mgExport
+cd ..
+rm -r minorGems
+mv mgExport minorGems
+
+# Still using CVS for Between
+cvs -z3 -d:ext:jcr13@hcsoftware.cvs.sourceforge.net:/cvsroot/hcsoftware export -r HEAD game7
