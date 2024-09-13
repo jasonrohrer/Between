@@ -515,7 +515,7 @@ function gs_createGame( $inPlayerID, $inPrivate ) {
             "CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '0' );";
 
 
-        $result = mysqli_query( $query );
+        $result = gs_queryDatabase( $query );
 
         if( $result ) {
             $found_unused_id = 1;
