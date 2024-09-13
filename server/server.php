@@ -1149,6 +1149,7 @@ function gs_checkForFlush() {
 
         $result = gs_queryDatabase( $query );
 
+        global $gs_mysqlLink;
         $numRowsRemoved = mysqli_affected_rows( $gs_mysqlLink );
 
         gs_log( "Flush operation on unstarted games removed $numRowsRemoved".
@@ -1174,6 +1175,7 @@ function gs_checkForFlush() {
         $result = gs_queryDatabase( $query );
 
 
+        global $gs_mysqlLink;
         $numRowsRemoved = mysqli_affected_rows( $gs_mysqlLink );
 
         gs_log( "Flush operation on started games removed $numRowsRemoved".
