@@ -309,14 +309,14 @@ function gs_showLog() {
         $query = "SELECT * FROM $tableNamePrefix"."log;";
         $result = gs_queryDatabase( $query );
 
-        $numRows = mysql_numrows( $result );
+        $numRows = mysqli_num_rows( $result );
 
         echo "$numRows log entries:<br><br><br>\n";
         
 
         for( $i=0; $i<$numRows; $i++ ) {
-            $time = mysql_result( $result, $i, "entry_time" );
-            $entry = mysql_result( $result, $i, "entry" );
+            $time = gs_mysqli_result( $result, $i, "entry_time" );
+            $entry = gs_mysqli_result( $result, $i, "entry" );
 
             echo "<b>$time</b>:<br>$entry<hr>\n";
             }
@@ -365,7 +365,7 @@ function gs_getPlayerID() {
         "FOR UPDATE;";
     $result = gs_queryDatabase( $query );
 
-    $numRows = mysql_numrows( $result );
+    $numRows = mysqli_num_rows( $result );
 
     // default if none in DB yet
     // note that lucky first player gets this ID
@@ -373,7 +373,7 @@ function gs_getPlayerID() {
     
     if( $numRows > 0 ) {
         // get the one from DB
-        $id_to_return = mysql_result( $result, 0, "next_player_id" );
+        $id_to_return = gs_mysqli_result( $result, 0, "next_player_id" );
         }
     else {
         // no rows
@@ -515,7 +515,7 @@ function gs_createGame( $inPlayerID, $inPrivate ) {
             "CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '0' );";
 
 
-        $result = mysql_query( $query );
+        $result = mysqli_query( $query );
 
         if( $result ) {
             $found_unused_id = 1;
@@ -549,7 +549,7 @@ function gs_createGame( $inPlayerID, $inPrivate ) {
         else {
             global $debug;
             if( $debug == 1 ) {
-                echo "Duplicate ids?  Error:  " . mysql_error() ."<br>";
+                echo "Duplicate ids?  Error:  " . mysqli_error() ."<br>";
                 }
             // try again
             $salt += 1;
@@ -605,11 +605,11 @@ function gs_joinWithFriend() {
         "AND player_2_ready = '0';";
     $result = gs_queryDatabase( $query );
 
-    $numRows = mysql_numrows( $result );
+    $numRows = mysqli_num_rows( $result );
 
     if( $numRows == 1 ) {
         
-        $row = mysql_fetch_array( $result, MYSQL_ASSOC );
+        $row = mysqli_fetch_array( $result, MYSQLI_ASSOC );
         
         $game_passcode = $row[ "game_passcode" ];
         $player_2_transform = $row[ "player_2_transform" ];
@@ -672,10 +672,10 @@ function gs_joinWithStranger() {
         "FOR UPDATE;";
     $result = gs_queryDatabase( $query );
 
-    $numRows = mysql_numrows( $result );
+    $numRows = mysqli_num_rows( $result );
 
     if( $numRows > 0 ) {
-        $row = mysql_fetch_array( $result, MYSQL_ASSOC );
+        $row = mysqli_fetch_array( $result, MYSQLI_ASSOC );
 
         $game_id = $row[ "game_id" ];
         $game_passcode = $row[ "game_passcode" ];
@@ -757,10 +757,10 @@ function gs_isPartnerReady() {
             "WHERE game_id = '$game_id' AND game_passcode = '$game_passcode';";
     $result = gs_queryDatabase( $query );
 
-    $numRows = mysql_numrows( $result );
+    $numRows = mysqli_num_rows( $result );
 
     if( $numRows == 1 ) {
-        $row = mysql_fetch_array( $result, MYSQL_ASSOC );
+        $row = mysqli_fetch_array( $result, MYSQLI_ASSOC );
 
         $otherReady = 0;
         
@@ -879,10 +879,10 @@ function gs_postMove() {
         "FOR UPDATE;";
     $result = gs_queryDatabase( $query );
 
-    $numRows = mysql_numrows( $result );
+    $numRows = mysqli_num_rows( $result );
 
     if( $numRows == 1 ) {
-        $row = mysql_fetch_array( $result, MYSQL_ASSOC );
+        $row = mysqli_fetch_array( $result, MYSQLI_ASSOC );
         
         $state_number = $row[ "state_number" ];
 
@@ -1022,10 +1022,10 @@ function gs_getChangedColumns() {
             "WHERE game_id = '$game_id' AND game_passcode = '$game_passcode';";
     $result = gs_queryDatabase( $query );
 
-    $numRows = mysql_numrows( $result );
+    $numRows = mysqli_num_rows( $result );
 
     if( $numRows == 1 ) {
-        $row = mysql_fetch_array( $result, MYSQL_ASSOC );
+        $row = mysqli_fetch_array( $result, MYSQLI_ASSOC );
 
         $state_number = $row[ "state_number" ];
 
@@ -1042,7 +1042,7 @@ function gs_getChangedColumns() {
 
         $result = gs_queryDatabase( $query );
         
-        $secondsSincePartnerActed = mysql_result( $result, 0, 0 );
+        $secondsSincePartnerActed = gs_mysqli_result( $result, 0, 0 );
         
 
         
@@ -1053,7 +1053,7 @@ function gs_getChangedColumns() {
 
         $result = gs_queryDatabase( $query );
 
-        $numChangedColumns = mysql_numrows( $result );
+        $numChangedColumns = mysqli_num_rows( $result );
 
         echo "$secondsSincePartnerActed\n";
         echo "$state_number\n";
@@ -1062,8 +1062,8 @@ function gs_getChangedColumns() {
         
         for( $i=0; $i<$numChangedColumns; $i++ ) {
             
-            $blocks = mysql_result( $result, $i, "blocks" );
-            $column_index = mysql_result( $result, $i, "column_index" );
+            $blocks = gs_mysqli_result( $result, $i, "blocks" );
+            $column_index = gs_mysqli_result( $result, $i, "column_index" );
 
             if( $player_number == 2 ) {
                 // flip left-to-right
@@ -1122,7 +1122,7 @@ function gs_checkForFlush() {
 
     $result = gs_queryDatabase( $query );
 
-    if( mysql_numrows( $result ) > 0 ) {
+    if( mysqli_num_rows( $result ) > 0 ) {
 
         // last flush time is old
 
@@ -1149,7 +1149,7 @@ function gs_checkForFlush() {
 
         $result = gs_queryDatabase( $query );
 
-        $numRowsRemoved = mysql_affected_rows();
+        $numRowsRemoved = mysqli_affected_rows();
 
         gs_log( "Flush operation on unstarted games removed $numRowsRemoved".
                 " rows." );
@@ -1174,7 +1174,7 @@ function gs_checkForFlush() {
         $result = gs_queryDatabase( $query );
 
 
-        $numRowsRemoved = mysql_affected_rows();
+        $numRowsRemoved = mysqli_affected_rows();
 
         gs_log( "Flush operation on started games removed $numRowsRemoved".
                 " rows." );
@@ -1187,7 +1187,7 @@ function gs_checkForFlush() {
 
             $result = gs_queryDatabase( $query );
 
-            $count = mysql_result( $result, 0, 0 );
+            $count = gs_mysqli_result( $result, 0, 0 );
 
             gs_log( "After flush, $count games left." );
                         }
@@ -1210,6 +1210,7 @@ function gs_checkForFlush() {
 
 
 
+$gs_mysqlLink;
 
 
 // general-purpose functions down here, many copied from seedBlogs
@@ -1219,16 +1220,17 @@ function gs_checkForFlush() {
  */  
 function gs_connectToDatabase() {
     global $databaseServer,
-        $databaseUsername, $databasePassword, $databaseName;
+        $databaseUsername, $databasePassword, $databaseName,
+        $gs_mysqlLink;
     
-    
-    mysql_connect( $databaseServer, $databaseUsername, $databasePassword )
+    $gs_mysqlLink = 
+        mysqli_connect( $databaseServer, $databaseUsername, $databasePassword )
         or gs_fatalError( "Could not connect to database server: " .
-                       mysql_error() );
+                       mysqli_error( $gs_mysqlLink ) );
     
-	mysql_select_db( $databaseName )
+	mysqli_select_db( $gs_mysqlLink, $databaseName )
         or gs_fatalError( "Could not select $databaseName database: " .
-                       mysql_error() );
+                       mysqli_error( $gs_mysqlLink ) );
     }
 
 
@@ -1237,7 +1239,9 @@ function gs_connectToDatabase() {
  * Closes the database connection.
  */
 function gs_closeDatabase() {
-    mysql_close();
+    global $gs_mysqlLink;
+    
+    mysqli_close( $gs_mysqlLink );
     }
 
 
@@ -1250,14 +1254,30 @@ function gs_closeDatabase() {
  * @return a result handle that can be passed to other mysql functions.
  */
 function gs_queryDatabase( $inQueryString ) {
-
-    $result = mysql_query( $inQueryString )
+    global $gs_mysqlLink;
+    
+    if( gettype( $gs_mysqlLink ) != "resource" ) {
+        // not a valid mysql link?
+        gs_connectToDatabase();
+        }
+    
+    $result = mysqli_query( $gs_mysqlLink, $inQueryString )
         or gs_fatalError( "Database query failed:<BR>$inQueryString<BR><BR>" .
-                       mysql_error() );
+                       mysqli_error( $gs_mysqlLink ) );
 
     return $result;
     }
 
+
+
+/**
+ * Replacement for the old gs_mysqli_result function.
+ */
+function gs_mysqli_result( $result, $number, $field=0 ) {
+    mysqli_data_seek( $result, $number );
+    $row = mysqli_fetch_array( $result );
+    return $row[ $field ];
+    }
 
 
 /**
@@ -1274,12 +1294,12 @@ function gs_doesTableExist( $inTableName ) {
     $query = "SHOW TABLES";
     $result = gs_queryDatabase( $query );
 
-    $numRows = mysql_numrows( $result );
+    $numRows = mysqli_num_rows( $result );
 
 
     for( $i=0; $i<$numRows && ! $tableExists; $i++ ) {
 
-        $tableName = mysql_result( $result, $i, 0 );
+        $tableName = gs_mysqli_result( $result, $i, 0 );
         
         if( $tableName == $inTableName ) {
             $tableExists = 1;
