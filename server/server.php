@@ -47,7 +47,7 @@ $setup_footer = "
 
 // ensure that magic quotes are on (adding slashes before quotes
 // so that user-submitted data can be safely submitted in DB queries)
-if( !get_magic_quotes_gpc() ) {
+if( ! function_exists( "get_magic_quotes_gpc" ) || !get_magic_quotes_gpc() ) {
     // force magic quotes to be added
     $_GET     = array_map( 'gs_addslashes_deep', $_GET );
     $_POST    = array_map( 'gs_addslashes_deep', $_POST );
